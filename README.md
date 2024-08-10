@@ -2,9 +2,11 @@
 
 ### API Gateway
 
+### DTOs
+
 ### Design Patterns
 
-### DTOs
+### Migrations
 
 ### Security
 
