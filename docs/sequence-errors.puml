@@ -1,0 +1,71 @@
+@startuml
+
+title Http Methods + Status Code + Service + Errors
+footer Disponível em https://github.com/acnaweb/api
+
+actor Usuario
+participant Frontend
+participant ProductController
+participant ProductService
+
+== Criar Produto ==
+Usuario -> Frontend: Solicita criação de produto
+Frontend -> ProductController: POST /produtos (dados do produto)
+ProductController -> ProductService: createProduct(produto)
+alt Produto válido
+    ProductService --> ProductController: Retorna produto (201 Created)
+    ProductController --> Frontend: Retorna sucesso
+    Frontend --> Usuario: Confirma criação
+else Dados inválidos
+    ProductService --> ProductController: Retorna erro (400 Bad Request)
+    ProductController --> Frontend: Retorna erro
+    Frontend --> Usuario: Exibe erro de validação
+end
+
+== Ler Produto ==
+Usuario -> Frontend: Solicita detalhes de um produto
+Frontend -> ProductController: GET /produtos/{id}
+ProductController -> ProductService: getProductById(id)
+alt Produto encontrado
+    ProductService --> ProductController: Retorna produto (200 OK)
+    ProductController --> Frontend: Exibe produto
+    Frontend --> Usuario: Exibe produto
+else Produto não encontrado
+    ProductService --> ProductController: Retorna erro (404 Not Found)
+    ProductController --> Frontend: Retorna erro
+    Frontend --> Usuario: Exibe mensagem "Produto não encontrado"
+end
+
+== Atualizar Produto ==
+Usuario -> Frontend: Solicita atualização de produto
+Frontend -> ProductController: PUT /produtos/{id} (dados atualizados)
+ProductController -> ProductService: updateProduct(id, produto)
+alt Produto encontrado e válido
+    ProductService --> ProductController: Retorna produto atualizado (200 OK)
+    ProductController --> Frontend: Retorna sucesso
+    Frontend --> Usuario: Confirma atualização
+else Produto não encontrado
+    ProductService --> ProductController: Retorna erro (404 Not Found)
+    ProductController --> Frontend: Retorna erro
+    Frontend --> Usuario: Exibe mensagem "Produto não encontrado"
+else Dados inválidos
+    ProductService --> ProductController: Retorna erro (400 Bad Request)
+    ProductController --> Frontend: Retorna erro
+    Frontend --> Usuario: Exibe erro de validação
+end
+
+== Deletar Produto ==
+Usuario -> Frontend: Solicita remoção de produto
+Frontend -> ProductController: DELETE /produtos/{id}
+ProductController -> ProductService: deleteProduct(id)
+alt Produto encontrado
+    ProductService --> ProductController: Retorna sucesso (204 No Content)
+    ProductController --> Frontend: Retorna sucesso
+    Frontend --> Usuario: Confirma remoção
+else Produto não encontrado
+    ProductService --> ProductController: Retorna erro (404 Not Found)
+    ProductController --> Frontend: Retorna erro
+    Frontend --> Usuario: Exibe mensagem "Produto não encontrado"
+end
+
+@enduml

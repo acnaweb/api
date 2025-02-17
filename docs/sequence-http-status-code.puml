@@ -1,0 +1,37 @@
+
+
+@startuml
+
+title Http Methods + Status Code
+footer Disponível em https://github.com/acnaweb/api
+
+
+actor Usuario
+participant Frontend
+participant Backend
+
+== Criar Produto ==
+Usuario -> Frontend: Solicita criação de produto
+Frontend -> Backend: POST /produtos (dados do produto)
+Backend --> Frontend: Retorna sucesso (201 Created)
+Frontend --> Usuario: Confirma criação
+
+== Ler Produto ==
+Usuario -> Frontend: Solicita detalhes de um produto
+Frontend -> Backend: GET /produtos/{id}
+Backend --> Frontend: Retorna produto (200 OK)
+Frontend --> Usuario: Exibe produto
+
+== Atualizar Produto ==
+Usuario -> Frontend: Solicita atualização de produto
+Frontend -> Backend: PUT /produtos/{id} (dados atualizados)
+Backend --> Frontend: Retorna sucesso (200 OK)
+Frontend --> Usuario: Confirma atualização
+
+== Deletar Produto ==
+Usuario -> Frontend: Solicita remoção de produto
+Frontend -> Backend: DELETE /produtos/{id}
+Backend --> Frontend: Retorna sucesso (204 No Content)
+Frontend --> Usuario: Confirma remoção
+
+@enduml

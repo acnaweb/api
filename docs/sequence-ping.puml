@@ -1,0 +1,15 @@
+@startuml
+
+title Ping Pong
+footer Disponível em https://github.com/acnaweb/api
+
+actor Usuario
+participant Frontend
+participant Backend
+
+Usuario -> Frontend: Solicita ping
+Frontend -> Backend: GET /ping
+Backend --> Frontend: Retorna "pong"
+Frontend --> Usuario: Exibe "pong"
+
+@enduml
