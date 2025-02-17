@@ -2,9 +2,21 @@
 
 Este guia apresenta uma sequência lógica para aprendizado de Microserviços, desde conceitos fundamentais até práticas avançadas, com exemplos para cada tópico
 
-## Diagramas
+## Use Cases
+
+<details>
+<summary>Ping Pong</summary>
 
 ![](out/docs/sequence-ping/sequence-ping.png)
+
+</details>
+
+<details>
+<summary>Http Methods</summary>
+
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
 
 ![](out/docs/sequence-http-status-code/sequence-http-status-code.png)
 
@@ -15,8 +27,20 @@ Explicação:
 - PUT para atualizar um produto existente.
 - DELETE para remover um produto.
 
+</details>
+
+<details>
+<summary>Http Methods + Service</summary>
 
 ![](out/docs/sequence-service/sequence-service.png)
+
+</details>
+
+
+<details>
+<summary>Http Methods + Service + Errors</summary>
+
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 
 
 ![](out/docs/sequence-errors/sequence-errors.png)
@@ -31,6 +55,9 @@ Explicação:
     - Se os dados forem inválidos, retorna 400 Bad Request.
 - Erros no DELETE (remoção)
 - Se o produto não existir, retorna 404 Not Found.
+
+</details>
+
 
 ## Tópicos
 ---
