@@ -1,6 +1,7 @@
 # API
 
-Este guia apresenta uma sequência lógica para aprendizado de Microserviços, desde conceitos fundamentais até práticas avançadas, com exemplos para cada tópico.
+Este guia apresenta uma sequência lógica para aprendizado de Microserviços, desde conceitos fundamentais até práticas avançadas, com exemplos para cada tópico
+
 ---
 
 ##  DTOs (Data Transfer Objects)
