@@ -86,7 +86,7 @@ Explicação:
 
 ---
 
-### Conteinerization
+### Containerization
 **Conceito:** Empacotar microserviços em containers para portabilidade.  
 **Exemplo:** Criar um `Dockerfile` e rodar um microserviço em um container Docker.
 
