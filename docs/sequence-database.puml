@@ -1,0 +1,68 @@
+@startuml
+actor Usuario
+participant Frontend
+participant ProductController
+participant ProductService
+participant ProductRepository
+database MySQL
+
+== Criar Produto ==
+Usuario -> Frontend: Solicita criação de produto
+Frontend -> ProductController: POST /produtos (dados do produto)
+ProductController -> ProductService: createProduct(produto)
+ProductService -> ProductRepository: save(produto)
+ProductRepository -> MySQL: INSERT INTO products
+MySQL --> ProductRepository: Produto criado
+ProductRepository --> ProductService: Retorna produto
+ProductService --> ProductController: Retorna produto (201 Created)
+ProductController --> Frontend: Retorna sucesso
+Frontend --> Usuario: Confirma criação
+
+== Ler Produto ==
+Usuario -> Frontend: Solicita detalhes de um produto
+Frontend -> ProductController: GET /produtos/{id}
+ProductController -> ProductService: getProductById(id)
+ProductService -> ProductRepository: findById(id)
+alt Produto encontrado
+    ProductRepository --> ProductService: Retorna produto
+    ProductService --> ProductController: Retorna produto (200 OK)
+    ProductController --> Frontend: Exibe produto
+    Frontend --> Usuario: Exibe produto
+else Produto não encontrado
+    ProductService --> ProductController: Retorna erro (404 Not Found)
+    ProductController --> Frontend: Retorna erro
+    Frontend --> Usuario: Exibe mensagem "Produto não encontrado"
+end
+
+== Atualizar Produto ==
+Usuario -> Frontend: Solicita atualização de produto
+Frontend -> ProductController: PUT /produtos/{id} (dados atualizados)
+ProductController -> ProductService: updateProduct(id, produto)
+ProductService -> ProductRepository: findById(id)
+alt Produto encontrado
+    ProductRepository --> ProductService: Retorna produto
+    ProductService -> ProductRepository: save(produto atualizado)
+    ProductRepository --> MySQL: UPDATE products SET ...
+    MySQL --> ProductRepository: Produto atualizado
+    ProductRepository --> ProductService: Retorna produto atualizado
+    ProductService --> ProductController: Retorna sucesso (200 OK)
+    ProductController --> Frontend: Confirma atualização
+else Produto não encontrado
+    ProductService --> ProductController: Retorna erro (404 Not Found)
+    ProductController --> Frontend: Exibe erro
+    Frontend --> Usuario: Exibe mensagem "Produto não encontrado"
+end
+
+== Deletar Produto ==
+Usuario -> Frontend: Solicita remoção de produto
+Frontend -> ProductController: DELETE /produtos/{id}
+ProductController -> ProductService: deleteProduct(id)
+ProductService -> ProductRepository: deleteById(id)
+ProductRepository --> MySQL: DELETE FROM products WHERE id = ?
+MySQL --> ProductRepository: Produto removido
+ProductRepository --> ProductService: Confirmação
+ProductService --> ProductController: Retorna sucesso (204 No Content)
+ProductController --> Frontend: Confirma remoção
+Frontend --> Usuario: Confirma remoção
+
+@enduml
