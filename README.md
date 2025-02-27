@@ -59,6 +59,15 @@ Explicação:
 </details>
 
 
+<details>
+<summary>Http Methods + Service + Errors + Database</summary>
+
+![](out/docs/sequence-database.png)
+
+</details>
+
+
+
 ## Tópicos
 ---
 
