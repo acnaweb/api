@@ -1,0 +1,30 @@
+@startuml
+actor Usuario
+participant Frontend
+participant AuthController
+participant JwtService
+participant UserService
+participant ProductController
+participant ProductService
+database MySQL
+
+== Login ==
+Usuario -> Frontend: Solicita login
+Frontend -> AuthController: POST /auth/login
+AuthController -> UserService: Valida credenciais
+UserService -> MySQL: Consulta usuário
+MySQL -> UserService: Retorna usuário
+UserService -> JwtService: Gera token JWT
+JwtService -> AuthController: Retorna token
+AuthController -> Frontend: Token JWT
+
+== Operações no CRUD ==
+Usuario -> Frontend: Solicita lista de produtos
+Frontend -> ProductController: GET /produtos (com JWT)
+ProductController -> ProductService: Valida token e retorna produtos
+ProductService -> MySQL: Busca produtos
+MySQL -> ProductService: Retorna lista
+ProductService -> ProductController: Retorna produtos
+ProductController -> Frontend: Exibe produtos
+
+@enduml
