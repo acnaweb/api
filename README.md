@@ -66,6 +66,19 @@ Explicação:
 
 </details>
 
+<details>
+<summary>Http Methods + Service + Errors + Database + Security</summary>
+
+![](out/docs/sequence-security.png)
+
+Explicação:
+
+- Criar o modelo User e DTOs de autenticação
+- Implementar UserService e UserRepository
+- Criar controlador de autenticação
+- Proteger os endpoints da API
+</details>
+
 
 
 ## Tópicos
