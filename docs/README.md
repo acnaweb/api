@@ -1,11 +1,14 @@
 # Java 
 
-- Spring Initializr - https://start.spring.io/
+- Spring Initializr
+  - https://start.spring.io/
 - Controller
   - @RestController
-  - @RequestMapping
-- Endpoints 
-  - GET @GetMapping("ping")
+  - @RequestMapping("/ping")
+- Endpoints (rotas)
+  - GET @GetMapping
+  - GET @GetMapping("/rota1")
+  - GET @GetMapping("/rota2")
 - OpenAPI 
   - Spring Doc - https://springdoc.org/
   - Swagger https://swagger.io/specification/
@@ -13,7 +16,7 @@
   ```
   springdoc.swagger-ui.path=/
   ```
-- Endpoints
+- Endpoints (rotas)
   - GET @GetMapping 
   - POST @PostMapping - @RequestBody
   - GET @GetMapping("{id}") - @PathVariable
