@@ -1,7 +1,8 @@
 # Java 
 
-- Spring Initializr
-  - https://start.spring.io/
+- Spring API Rest
+  - https://spring.io/guides/tutorials/rest
+- Spring Initializr - https://start.spring.io/
 - Controller
   - @RestController
   - @RequestMapping("/ping")
@@ -11,7 +12,7 @@
   - GET @GetMapping("/rota2")
 - OpenAPI 
   - Spring Doc - https://springdoc.org/
-  - Swagger https://swagger.io/specification/
+  - Swagger - https://swagger.io/specification/
   - application.properties
   ```
   springdoc.swagger-ui.path=/
@@ -22,7 +23,7 @@
   - GET @GetMapping("{id}") - @PathVariable
   - PUT @PutMapping("{id}") - @PathVariable + @RequestBody
   - DELETE @DeleteMapping("{id}") - @PathVariable
-- Http Status Code
+- Http Status Code - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
   - ResponseEntity.status(201)
   - ResponseEntity.status(200)
   - ResponseEntity.status(204)
