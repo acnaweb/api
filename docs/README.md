@@ -70,6 +70,8 @@
 - Spring Data Projections
   - https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html
   - https://www.baeldung.com/spring-data-jpa-projections
+- Pagination & Sort
+  - Pageable 
 - Spring Framework Profiles
   - https://docs.spring.io/spring-boot/docs/1.2.0.M1/reference/html/boot-features-profiles.html 
   - https://www.baeldung.com/spring-profiles
@@ -96,7 +98,6 @@
 - Security
   - https://www.baeldung.com/security-spring
 - API Versioning
-  - 
 - Code Quality - Checkstyle 
 - Docker Composer
 - Continuous Integration
@@ -104,5 +105,8 @@
 - Continuous Deployment
 - Cache
 - Migrations
+  - https://www.baeldung.com/database-migrations-with-flyway
 - Integration WebWook
 - Integration Kafka
+- Api Gateway
+ 
