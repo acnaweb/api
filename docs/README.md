@@ -3,6 +3,8 @@
 
 ## Feature Flag
 
+- https://martinfowler.com/bliki/FeatureFlag.html
+
 
 ## Spring API Rest
 O Spring Boot permite construir APIs RESTful de forma rápida e simples.
