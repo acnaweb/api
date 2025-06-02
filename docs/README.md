@@ -5,6 +5,31 @@
 
 - https://martinfowler.com/bliki/FeatureFlag.html
 
+```properties
+feature.produtos.enabled=true
+feature.clientes.enabled=false
+```
+
+```FeatureFlagInterceptor.java
+@Component
+public class FeatureFlagInterceptor implements HandlerInterceptor {
+
+    @Value("${feature.clientes.enabled:false}")
+    private boolean clientesEnabled;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws Exception {
+
+        if (request.getRequestURI().startsWith("/clientes") && !clientesEnabled) {
+            response.setStatus(HttpStatus.NOT_IMPLEMENTED.value());
+            response.getWriter().write("Endpoint /clientes está desabilitado por feature flag.");
+            return false;
+        }
+        return true;
+    }
+}
+```
 
 ## Spring API Rest
 O Spring Boot permite construir APIs RESTful de forma rápida e simples.
