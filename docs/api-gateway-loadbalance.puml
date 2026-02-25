@@ -1,5 +1,5 @@
 @startuml
-title Arquitetura com API Gateway + Load Balancer + Containers (mesma imagem)
+title Arquitetura com API Gateway + Load Balancer + Containers (Rate Limiting / Throttling)
 
 actor "Cliente\nIP: 203.0.113.10" as Cliente
 
@@ -11,27 +11,35 @@ note right of APIGW
 Principais funcionalidades:
 - Roteamento de requisições
 - Autenticação e Autorização
-- Rate Limiting
+- **Rate Limiting**: Limita requisições por cliente/IP
+- **Throttling**: Controla picos de tráfego
 - Monitoramento e Logging
 - Transformação de requisições/respostas
 - Centralização de políticas de segurança
 end note
 
+' Notas ilustrativas de Rate Limiting e Throttling
+note left of APIGW
+Exemplo:
+- Rate Limit: 100 req/min por cliente
+- Burst Permitido: 20 requisições
+- Throttling: atrasar requisições extras até a próxima janela
+end note
+
 component "Load Balancer\nIP Público: 203.0.113.100\nIP Privado: 10.0.0.100" as LB
 
-node "Cluster de Containers\nRede Privada: 10.0.0.0/24" as Cluster {
-
+node "Cluster de Containers\nRede Privada: 10.0.0.0/24" {
 
   node "Container 1\nIP: 10.0.0.11" {
     component "API Spring Boot"
   }
 
   node "Container 2\nIP: 10.0.0.12" {
-    component "API Spring Boot"
+    component "API Spring Boot2"
   }
 
   node "Container 3\nIP: 10.0.0.13" {
-    component "API Spring Boot"
+    component "API Spring Boot3"
   }
 
 }
@@ -39,15 +47,19 @@ node "Cluster de Containers\nRede Privada: 10.0.0.0/24" as Cluster {
 database "Banco de Dados\nIP: 10.0.0.20" as DB
 
 Cliente --> App
-App --> APIGW
-APIGW --> LB
+App --> APIGW : Requisições HTTP
+APIGW --> LB : Requests válidas após Rate Limiting / Throttling
 
 LB --> "API Spring Boot"
-LB --> "API Spring Boot"
-LB --> "API Spring Boot"
+LB --> "API Spring Boot2"
+LB --> "API Spring Boot3"
 
 "API Spring Boot" --> DB
-"API Spring Boot" --> DB
-"API Spring Boot" --> DB
+"API Spring Boot2" --> DB
+"API Spring Boot3" --> DB
+
+' Exemplo de retorno de requisições bloqueadas por Rate Limiting
+APIGW --> App : 429 Too Many Requests (quando limite excedido)
+App --> Cliente : 429 Too Many Requests
 
 @enduml
