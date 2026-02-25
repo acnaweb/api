@@ -1,0 +1,8 @@
+| Tipo de API                  | Limite por Cliente | Limite por IP | Janela de Tempo | Burst Permitido | Latência Média | Latência P95 | Latência P99 | Throughput Estimado | Observações |
+|-------------------------------|-----------------|---------------|----------------|----------------|----------------|--------------|--------------|-------------------|-------------|
+| Pública – Leitura (GET)       | 1000 req/min    | 5000 req/min  | 1 min          | 200 req        | 120 ms         | 250 ms       | 400 ms       | 16 req/sec        | Para APIs públicas de alto tráfego, leitura apenas |
+| Pública – Escrita (POST/PUT/DELETE) | 200 req/min     | 1000 req/min  | 1 min          | 50 req         | 150 ms         | 300 ms       | 500 ms       | 3-4 req/sec       | Protege o backend contra alterações excessivas |
+| Autenticada – Leitura         | 2000 req/min    | 10000 req/min | 1 min          | 500 req        | 100 ms         | 200 ms       | 350 ms       | 33 req/sec        | Usuários autenticados podem ter limites maiores |
+| Autenticada – Escrita         | 500 req/min     | 2500 req/min  | 1 min          | 100 req        | 130 ms         | 280 ms       | 450 ms       | 8 req/sec         | Inclui endpoints críticos de criação/atualização |
+| Interna / Microserviço        | 5000 req/min    | –             | 1 min          | 1000 req       | 50 ms          | 100 ms       | 200 ms       | 83 req/sec        | Uso interno entre serviços, geralmente confiável |
+| Admin / Operacional           | 10000 req/min   | –             | 1 min          | 2000 req       | 70 ms          | 150 ms       | 300 ms       | 166 req/sec       | Acesso restrito a operações administrativas |
