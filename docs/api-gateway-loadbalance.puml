@@ -1,0 +1,53 @@
+@startuml
+title Arquitetura com API Gateway + Load Balancer + Containers (mesma imagem)
+
+actor "Cliente\nIP: 203.0.113.10" as Cliente
+
+component "App\nIP: 203.0.113.20" as App
+
+component "API Gateway\nIP Público: 203.0.113.50\nIP Privado: 10.0.0.50" as APIGW
+
+note right of APIGW
+Principais funcionalidades:
+- Roteamento de requisições
+- Autenticação e Autorização
+- Rate Limiting
+- Monitoramento e Logging
+- Transformação de requisições/respostas
+- Centralização de políticas de segurança
+end note
+
+component "Load Balancer\nIP Público: 203.0.113.100\nIP Privado: 10.0.0.100" as LB
+
+node "Cluster de Containers\nRede Privada: 10.0.0.0/24" as Cluster {
+
+
+  node "Container 1\nIP: 10.0.0.11" {
+    component "API Spring Boot"
+  }
+
+  node "Container 2\nIP: 10.0.0.12" {
+    component "API Spring Boot"
+  }
+
+  node "Container 3\nIP: 10.0.0.13" {
+    component "API Spring Boot"
+  }
+
+}
+
+database "Banco de Dados\nIP: 10.0.0.20" as DB
+
+Cliente --> App
+App --> APIGW
+APIGW --> LB
+
+LB --> "API Spring Boot"
+LB --> "API Spring Boot"
+LB --> "API Spring Boot"
+
+"API Spring Boot" --> DB
+"API Spring Boot" --> DB
+"API Spring Boot" --> DB
+
+@enduml
